@@ -19,17 +19,13 @@ def get_url_photo():
 
 
 def upload_to_yadisk(file_name, file_url):
-    # upload_url = uploader.get_upload_url(file_name)
-    # print(upload_url)
-    result = uploader.upload_from_url(file_name, file_url)
-    return result
+    return uploader.upload_from_url(file_name, file_url)
 
 
 if __name__ == '__main__':
     vk = VK(vk_access_token, vk_api_version)
     uploader = YaUploader(yandex_disk_token)
-    print(get_url_photo())
     n = 0
     for photo_url in get_url_photo():
-        print(upload_to_yadisk(f'demo{n}.png', photo_url))
+        print(upload_to_yadisk(f'demo_{n}.png', photo_url))
         n += 1
