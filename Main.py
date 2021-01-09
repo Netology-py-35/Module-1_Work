@@ -13,13 +13,12 @@ yandex_disk_token = os.environ.get('yandex_disk_token')
 def get_url_photo():
     photo_url = []
     for photo in vk.get_photos()['response']['items']:
-        for size in photo['sizes']:
-            if size['height'] == 1080:
-                photo_url.append(size['url'])
+        size = photo['sizes'][-1:][0]['url']
+        photo_url.append(size)
     return photo_url
 
 
-def upoad_to_yadisk(file_name, file_url):
+def upload_to_yadisk(file_name, file_url):
     # upload_url = uploader.get_upload_url(file_name)
     # print(upload_url)
     result = uploader.upload_from_url(file_name, file_url)
@@ -32,5 +31,5 @@ if __name__ == '__main__':
     print(get_url_photo())
     n = 0
     for photo_url in get_url_photo():
-        print(upoad_to_yadisk(f'demo{n}.png', photo_url))
+        print(upload_to_yadisk(f'demo{n}.png', photo_url))
         n += 1
