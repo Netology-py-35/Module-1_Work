@@ -16,7 +16,11 @@ class YaUploader:
         resp.raise_for_status()
         return resp.json()['href']
 
-    def upload_from_url(self, url, file_url):
-        resp = requests.post(url, files={'url': file_url})
+    def upload_from_url(self, name, file_url):
+        # resp = requests.post(url, files={'url': file_url})
+        resp = requests.post(self.url_requests, headers=self.headers, params={
+            'url': file_url,
+            'path': f'/{name}'
+        })
         resp.raise_for_status()
         return resp
