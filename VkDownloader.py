@@ -18,9 +18,10 @@ class VK:
         }
         return requests.get(url, params={**self.params, **user_params}).json()
 
-    def get_photos(self):
+    def get_photos(self, count=5):
         url = self.url + 'photos.get'
         photos_params = {
-            'album_id': 'wall'
+            'album_id': 'wall',
+            'count': count
         }
         return requests.get(url, params={**self.params, **photos_params}).json()
