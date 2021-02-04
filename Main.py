@@ -1,5 +1,6 @@
 import os
 import time
+import tqdm
 
 from dotenv import load_dotenv  # for python-dotenv method
 from VkDownloader import VK
@@ -15,9 +16,9 @@ uploader = YaUploader(yandex_disk_token)
 folder = 'vk_photos'
 
 
-def get_url_photo():
+def get_url_photo(count=5):
     photo_url = []
-    for photo in vk.get_photos()['response']['items']:
+    for photo in vk.get_photos(count=count)['response']['items']:
         size = photo['sizes'][-1:][0]['url']
         photo_url.append(size)
     return photo_url
@@ -31,8 +32,8 @@ def upload_to_yadisk(file_name, file_url):
 def main():
     n = 0
     print(uploader.create_folder(folder))
-    for photo_url in get_url_photo():
-        print(upload_to_yadisk(f'{folder}/demo_{n}.png', photo_url))
+    for photo_url in tqdm.tqdm(get_url_photo(count=60)).bar_format:
+        upload_to_yadisk(f'{folder}/vk_photo_{n}.png', photo_url) # индекс в имени файла нужен, так как без него сохранаяются только 4 файла вместо 5
         n += 1
 
 

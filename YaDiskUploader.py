@@ -24,7 +24,6 @@ class YaUploader:
         except Exception as e:
             print(e)
             return 0
-
         return resp
 
     def upload_from_url(self, name, file_url):
